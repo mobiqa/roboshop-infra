@@ -1,3 +1,3 @@
 bucket = "mobiqa"
-key    = "roboshop-infra/dev/terraform.tfstate"
+key    = 05-remote-state/terraform.tfstate
 region = "us-east-1"
