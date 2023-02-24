@@ -1,4 +1,3 @@
-bucket = "terraform-ncrmobiqa"
-key    = "roboshop-infra/prod/terraform.tfstate"
+bucket = "ncrvenkat"
+key    = "roboshop-infra/dev/terraform.tfstate"
 region = "us-east-1"
-
