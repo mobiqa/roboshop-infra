@@ -10,7 +10,9 @@ module "vpc" {
   availability_zone = each.value.availability_zone
 }
 
+module "docdb" {
+  source         = "github.com/mobiqa/tf-module-docdb"
+  env            = var.env
 
-output "out" {
-  value = module.vpc
 }
+
