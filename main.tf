@@ -9,11 +9,11 @@ module "vpc" {
   private_subnets   = each.value.private_subnets
   availability_zone = each.value.availability_zone
 }
-
-module "docdb" {
-  source         = "github.com/mobiqa/tf-module-docdb"
-  env            = var.env
-  
-
-}
+#
+#module "docdb" {
+#  source         = "github.com/mobiqa/tf-module-docdb"
+#  env            = var.env
+#
+#
+#}
 
