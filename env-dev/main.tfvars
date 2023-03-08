@@ -30,6 +30,8 @@ vpc = {
       }
     }
 
+  }
+}
     docdb = {
       main = {
         vpc_name       = "main"
@@ -38,6 +40,5 @@ vpc = {
 
       }
     }
-  }
-}
+  
 
