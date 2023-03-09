@@ -79,9 +79,10 @@ module "apps" {
   min_size         = each.value.min_size
   desired_capacity = each.value.desired_capacity
   instance_type    = each.value.instance_type
-#  bastion_cidr     = var.bastion_cidr
-#
-#}
+  #  bastion_cidr     = var.bastion_cidr
+
+}
+
 #output "vpc" {
 #value = module.vpc
 #}
