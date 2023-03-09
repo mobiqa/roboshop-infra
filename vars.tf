@@ -6,8 +6,8 @@ variable "rds" {}
 variable "elasticache" {}
 variable "rabbitmq" {}
 variable "alb" {}
-variable "apps" {}
-variable "bastion_cidr" {}
+#variable "apps" {}
+#variable "bastion_cidr" {}
 
 
 
