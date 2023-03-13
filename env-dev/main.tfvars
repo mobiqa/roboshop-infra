@@ -1,13 +1,15 @@
 env            = "dev"
 default_vpc_id = "vpc-0743b75d14e0514ea"
 bastion_cidr   = ["172.31.3.189/32"]
+monitor_cidr   = ["172.31.7.154/32"]
+
 
 
 vpc = {
   main = {
     cidr_block        = "10.0.0.0/16"
     availability_zone = ["us-east-1a", "us-east-1b"]
-    public_subnets    = {
+    public_subnets = {
       public = {
         name        = "public"
         cidr_block  = ["10.0.0.0/24", "10.0.1.0/24"]
@@ -34,26 +36,25 @@ vpc = {
 
   }
 }
-    docdb = {
-      main = {
-        vpc_name       = "main"
-        subnets_name   = "db"
-        engine_version = "4.0.0"
-        number_of_instances = 1
-        instance_class      = "db.t3.medium"
 
+docdb = {
+  main = {
+    vpc_name            = "main"
+    subnets_name        = "db"
+    engine_version      = "4.0.0"
+    number_of_instances = 1
+    instance_class      = "db.t3.medium"
+  }
+}
 
-
-      }
-    }
-    rds = {
-     main = {
-       vpc_name            = "main"
-       subnets_name        = "db"
-       engine              = "aurora-mysql"
-       engine_version      = "5.7.mysql_aurora.2.11.1"
-       number_of_instances = 1
-       instance_class      = "db.t3.small"
+rds = {
+  main = {
+    vpc_name            = "main"
+    subnets_name        = "db"
+    engine              = "aurora-mysql"
+    engine_version      = "5.7.mysql_aurora.2.11.1"
+    number_of_instances = 1
+    instance_class      = "db.t3.small"
   }
 }
 
@@ -107,6 +108,8 @@ apps = {
     min_size                = 1
     desired_capacity        = 1
     instance_type           = "t3.micro"
+    alb                     = "public"
+    listener_priority       = 0
   }
   catalogue = {
     component               = "catalogue"
@@ -120,60 +123,67 @@ apps = {
     min_size                = 1
     desired_capacity        = 1
     instance_type           = "t3.micro"
+    alb                     = "private"
+    listener_priority       = 100
   }
-
-
-user = {
-  component               = "user"
-  vpc_name                = "main"
-  subnets_type            = "private_subnet_ids"
-  subnets_name            = "app"
-  app_port                = 8080
-  allow_cidr_subnets_type = "private_subnets"
-  allow_cidr_subnets_name = "app"
-  max_size                = 2
-  min_size                = 1
-  desired_capacity        = 1
-  instance_type           = "t3.micro"
+  user = {
+    component               = "user"
+    vpc_name                = "main"
+    subnets_type            = "private_subnet_ids"
+    subnets_name            = "app"
+    app_port                = 8080
+    allow_cidr_subnets_type = "private_subnets"
+    allow_cidr_subnets_name = "app"
+    max_size                = 2
+    min_size                = 1
+    desired_capacity        = 1
+    instance_type           = "t3.micro"
+    alb                     = "private"
+    listener_priority       = 101
+  }
+  cart = {
+    component               = "cart"
+    vpc_name                = "main"
+    subnets_type            = "private_subnet_ids"
+    subnets_name            = "app"
+    app_port                = 8080
+    allow_cidr_subnets_type = "private_subnets"
+    allow_cidr_subnets_name = "app"
+    max_size                = 2
+    min_size                = 1
+    desired_capacity        = 1
+    instance_type           = "t3.micro"
+    alb                     = "private"
+    listener_priority       = 102
+  }
+  shipping = {
+    component               = "shipping"
+    vpc_name                = "main"
+    subnets_type            = "private_subnet_ids"
+    subnets_name            = "app"
+    app_port                = 8080
+    allow_cidr_subnets_type = "private_subnets"
+    allow_cidr_subnets_name = "app"
+    max_size                = 2
+    min_size                = 1
+    desired_capacity        = 1
+    instance_type           = "t3.micro"
+    alb                     = "private"
+    listener_priority       = 103
+  }
+  payment = {
+    component               = "payment"
+    vpc_name                = "main"
+    subnets_type            = "private_subnet_ids"
+    subnets_name            = "app"
+    app_port                = 8080
+    allow_cidr_subnets_type = "private_subnets"
+    allow_cidr_subnets_name = "app"
+    max_size                = 2
+    min_size                = 1
+    desired_capacity        = 1
+    instance_type           = "t3.micro"
+    alb                     = "private"
+    listener_priority       = 104
+  }
 }
-cart = {
-  component               = "cart"
-  vpc_name                = "main"
-  subnets_type            = "private_subnet_ids"
-  subnets_name            = "app"
-  app_port                = 8080
-  allow_cidr_subnets_type = "private_subnets"
-  allow_cidr_subnets_name = "app"
-  max_size                = 2
-  min_size                = 1
-  desired_capacity        = 1
-  instance_type           = "t3.micro"
-}
-shipping = {
-  component               = "shipping"
-  vpc_name                = "main"
-  subnets_type            = "private_subnet_ids"
-  subnets_name            = "app"
-  app_port                = 8080
-  allow_cidr_subnets_type = "private_subnets"
-  allow_cidr_subnets_name = "app"
-  max_size                = 2
-  min_size                = 1
-  desired_capacity        = 1
-  instance_type           = "t3.micro"
-}
-payment = {
-  component               = "payment"
-  vpc_name                = "main"
-  subnets_type            = "private_subnet_ids"
-  subnets_name            = "app"
-  app_port                = 8080
-  allow_cidr_subnets_type = "private_subnets"
-  allow_cidr_subnets_name = "app"
-  max_size                = 2
-  min_size                = 1
-  desired_capacity        = 1
-  instance_type           = "t3.micro"
-}
-}
-
